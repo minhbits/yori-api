@@ -14,4 +14,21 @@ RSpec.describe Recipe, type: :model do
       expect(recipe.errors[:title]).to include("can't be blank")
     end
   end
+
+  describe(".recent") do
+    it "returns recipes in the correct order" do
+      old_recipe = create(:recipe, created_at: 1.hour.ago)
+      new_recipe = create(:recipe)
+
+      expect(described_class.recent).to eq(
+        [new_recipe, old_recipe]
+      )
+
+      new_recipe.update_column(:created_at, 2.hours.ago)
+
+      expect(described_class.recent).to eq(
+        [old_recipe, new_recipe]
+      )
+    end
+  end
 end
