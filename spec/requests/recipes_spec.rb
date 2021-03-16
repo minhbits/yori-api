@@ -34,4 +34,24 @@ RSpec.describe "Recipes", type: :request do
       )
     end
   end
+
+  describe "GET /recipes/:id" do
+    let(:recipe) { create :recipe }
+    before { get "/recipes/#{recipe.id}" }
+
+    it "returns http success response" do
+      expect(response).to have_http_status(:success)
+    end
+
+    it "returns proper JSON format" do
+      aggregate_failures do
+        expected = json_data
+        expect(expected[:id]).to eq(recipe.id.to_s)
+        expect(expected[:type]).to eq("recipe")
+        expect(expected[:attributes]).to eq(
+          title: recipe.title
+        )
+      end
+    end
+  end
 end
