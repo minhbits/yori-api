@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :update]
+  before_action :set_recipe, only: [:show, :update, :destroy]
 
   def index
     @recipes = Recipe.recent
@@ -28,6 +28,10 @@ class RecipesController < ApplicationController
     else
       render json: @recipe.errors, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @recipe.destroy
   end
 
   private

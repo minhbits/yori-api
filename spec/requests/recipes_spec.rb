@@ -112,4 +112,21 @@ RSpec.describe 'Recipes', type: :request do
       expect { Recipe.update(valid_attributes[:data]) }.not_to(change { Recipe.count })
     end
   end
+
+  describe 'DELETE /recipes/:id' do
+    let!(:recipe) { create :recipe }
+
+    it 'returns http success response' do
+      delete "/recipes/#{recipe.id}"
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'returns empty JSON' do
+      expect(response).to be_blank
+    end
+
+    it 'deletes the recipe' do
+      expect { Recipe.find(recipe.id).destroy }.to change { Recipe.count }.by(-1)
+    end
+  end
 end

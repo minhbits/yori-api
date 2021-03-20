@@ -19,4 +19,8 @@ RSpec.describe '/recipes routes', type: :routing do
     expect((put '/recipes/1')).to route_to('recipes#update', 'id' => '1')
     expect((patch '/recipes/1')).to route_to('recipes#update', 'id' => '1')
   end
+
+  it 'routes to recipes#destroy' do
+    expect((delete '/recipes/1')).to route_to('recipes#destroy', 'id' => '1')
+  end
 end
