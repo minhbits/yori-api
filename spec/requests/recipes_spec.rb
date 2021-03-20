@@ -58,7 +58,7 @@ RSpec.describe 'Recipes', type: :request do
     let(:valid_attributes) { { data: { attributes: { title: 'Awesome recipe' } } } }
     before { post '/recipes', { params: valid_attributes } }
 
-    it 'returns http created response' do
+    it 'returns http success response' do
       expect(response).to have_http_status(:success)
     end
 
@@ -70,6 +70,46 @@ RSpec.describe 'Recipes', type: :request do
 
     it 'creates the recipe' do
       expect { Recipe.create(valid_attributes[:data]) }.to change { Recipe.count }.by(1)
+    end
+  end
+
+  describe 'PUT /recipes' do
+    let(:recipe) { create :recipe }
+    let(:valid_attributes) { { data: { attributes: { title: 'Awesome recipe' } } } }
+    before { put "/recipes/#{recipe.id}", { params: valid_attributes } }
+
+    it 'returns http success response' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'returns proper JSON format' do
+      expect(json_data[:attributes]).to include(
+        valid_attributes[:data][:attributes]
+      )
+    end
+
+    it 'does not create a new recipe' do
+      expect { Recipe.update(valid_attributes[:data]) }.not_to(change { Recipe.count })
+    end
+  end
+
+  describe 'PATCH /recipes' do
+    let(:recipe) { create :recipe }
+    let(:valid_attributes) { { data: { attributes: { title: 'Awesome recipe' } } } }
+    before { patch "/recipes/#{recipe.id}", { params: valid_attributes } }
+
+    it 'returns http success response' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'returns proper JSON format' do
+      expect(json_data[:attributes]).to include(
+        valid_attributes[:data][:attributes]
+      )
+    end
+
+    it 'does not create a new recipe' do
+      expect { Recipe.update(valid_attributes[:data]) }.not_to(change { Recipe.count })
     end
   end
 end

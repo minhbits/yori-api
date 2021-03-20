@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show]
+  before_action :set_recipe, only: [:show, :update]
 
   def index
     @recipes = Recipe.recent
@@ -16,6 +16,14 @@ class RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
 
     if @recipe.save
+      render json: RecipeSerializer.new(@recipe)
+    else
+      render json: @recipe.errors, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @recipe.update(recipe_params)
       render json: RecipeSerializer.new(@recipe)
     else
       render json: @recipe.errors, status: :unprocessable_entity

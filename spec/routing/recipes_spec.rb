@@ -14,4 +14,9 @@ RSpec.describe '/recipes routes', type: :routing do
   it 'routes to recipes#create' do
     expect((post '/recipes')).to route_to('recipes#create')
   end
+
+  it 'routes to recipes#update' do
+    expect((put '/recipes/1')).to route_to('recipes#update', 'id' => '1')
+    expect((patch '/recipes/1')).to route_to('recipes#update', 'id' => '1')
+  end
 end

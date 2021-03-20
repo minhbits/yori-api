@@ -4,3 +4,7 @@ AllCops:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
+Style/SymbolArray:
+  Enabled: false
+Documentation:
+  Enabled: false
