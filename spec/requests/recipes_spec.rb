@@ -54,4 +54,31 @@ RSpec.describe "Recipes", type: :request do
       end
     end
   end
+
+  describe "POST /recipes" do
+    let(:valid_attributes) do
+      {
+        "data": {
+          "attributes": {
+            "title": "Awesome recipe",
+          }
+        }
+      }
+    end
+    before { post "/recipes", { params: valid_attributes } }
+
+    it "returns http created response" do
+      expect(response).to have_http_status(:success)
+    end
+
+    it "returns proper JSON format" do
+      expect(json_data[:attributes]).to include(
+        valid_attributes[:data][:attributes]
+      )
+    end
+
+    it "creates the recipe" do
+      expect{ Recipe.create(valid_attributes[:data]) }.to change{ Recipe.count }.by(1)
+    end
+  end
 end

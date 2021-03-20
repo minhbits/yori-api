@@ -10,9 +10,23 @@ class RecipesController < ApplicationController
     render json: RecipeSerializer.new(@recipe)
   end
 
+  def create
+    @recipe = Recipe.new(recipe_params)
+
+    if @recipe.save
+      render json: RecipeSerializer.new(@recipe)
+    else
+      render json: @recipe.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_recipe
     @recipe = Recipe.find(params[:id])
+  end
+
+  def recipe_params
+    params.require(:data).require(:attributes).permit(:title)
   end
 end
