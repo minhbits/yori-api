@@ -1,0 +1,10 @@
+AllCops:
+  NewCops: enable
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+Style/SymbolArray:
+  Enabled: false
+Documentation:
+  Enabled: false
