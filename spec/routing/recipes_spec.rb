@@ -8,7 +8,7 @@ RSpec.describe '/recipes routes', type: :routing do
   end
 
   it 'routes to recipes#show' do
-    expect((get '/recipes/1')).to route_to('recipes#show', 'id' => '1')
+    expect((get '/recipes/1')).to route_to('recipes#show', id: '1')
   end
 
   it 'routes to recipes#create' do
@@ -16,11 +16,11 @@ RSpec.describe '/recipes routes', type: :routing do
   end
 
   it 'routes to recipes#update' do
-    expect((put '/recipes/1')).to route_to('recipes#update', 'id' => '1')
-    expect((patch '/recipes/1')).to route_to('recipes#update', 'id' => '1')
+    expect((put '/recipes/1')).to route_to('recipes#update', id: '1')
+    expect((patch '/recipes/1')).to route_to('recipes#update', id: '1')
   end
 
   it 'routes to recipes#destroy' do
-    expect((delete '/recipes/1')).to route_to('recipes#destroy', 'id' => '1')
+    expect((delete '/recipes/1')).to route_to('recipes#destroy', id: '1')
   end
 end
