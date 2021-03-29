@@ -1,6 +1,15 @@
 AllCops:
   NewCops: enable
-
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - '**/config/**/*'
+    - 'bin/**/*'
+    - 'Gemfile'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+    - 'config.ru'
+    - 'Rakefile'
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
